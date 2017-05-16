@@ -23,20 +23,26 @@ def uniqueSubmissionStudent(project_submissions):
         submission.add(sub['account_key'])
     return submission
 
+def enrollmentNoEngagement(enrollments, uniqueEngagementStudent):
+    enrollmentNoEngagement = list()
+    for enr in enrollments:
+        student = enr['account_key']
+        if student not in uniqueEngagementStudent \
+            and enr['join_date'] != enr['cancel_date']:
+            enrollmentNoEngagement.append(enr)
+    return enrollmentNoEngagement
 
-enrollments = read_csv('../data/enrollments.csv')
-daily_engagement = read_csv('../data/daily_engagement.csv')
+
+
+
+enrollments         = read_csv('../data/enrollments.csv')
+daily_engagement    = read_csv('../data/daily_engagement.csv')
 project_submissions = read_csv('../data/project_submissions.csv')
 
-enrollment_num_rows = len(enrollments)
-enrollment_num_unique_students = len( uniqueEnrollmentStudent(enrollments) )
 
-engagement_num_rows = len(daily_engagement)
-engagement_num_unique_students = len( uniqueEngagementStudent(daily_engagement) );
+uniqueEnrollmentStudents = uniqueEnrollmentStudent(enrollments)
+uniqueEngagementStudent  = uniqueEngagementStudent(daily_engagement)
+uniqueSubmissionStudent  = uniqueSubmissionStudent(project_submissions)
+enrollmentNoEngagement = enrollmentNoEngagement(enrollments, uniqueEngagementStudent)
 
-submission_num_rows = len(project_submissions)
-submission_num_unique_students = len( uniqueSubmissionStudent(project_submissions) )
-
-print(enrollment_num_unique_students)
-print(engagement_num_unique_students)
-print(submission_num_unique_students)
+print(len(enrollments))
