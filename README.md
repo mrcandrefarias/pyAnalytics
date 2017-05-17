@@ -1,6 +1,6 @@
 # pyAnalytics
 
-> pyAnalytics data analytics com python e pandas
+> Data analytics com python e pandas
 
 ## Requirements
 
