@@ -1,4 +1,8 @@
 import numpy as np
+'''
+Em um np.array todos os elementos devem ser do mesmo tipo.
+Caso nao sejam, numpy os tratara como strings
+'''
 
 # Subway ridership for 5 stations on 10 different days
 ridership = np.array([
