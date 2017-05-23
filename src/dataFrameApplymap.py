@@ -1,5 +1,5 @@
 import pandas as pd
-
+import numpy as np
 if False:
     df = pd.DataFrame({
         'a': [1, 2, 3],
@@ -38,7 +38,6 @@ def convert_grades(grades):
 
 if False:
     def convert_grades_curve(exam_grades):
-        # http://pandas.pydata.org/pandas-docs/stable/generated/pandas.qcut.html
         return pd.qcut(exam_grades,
                        [0, 0.1, 0.2, 0.5, 0.8, 1],
                        labels=['F', 'D', 'C', 'B', 'A'])
@@ -53,4 +52,30 @@ def stdColuna(coluna):
 def stdGrades(df):
     return df.apply(stdColuna)
 
-print stdGrades(grades_df)
+#print stdGrades(grades_df)
+
+def stdGradesSemApply(df):
+    mean_diff = df.sub( df.mean(axis='columns'), axis='index' )
+    return mean_diff.div( df.std(axis='columns'),  axis='index' )
+
+print stdGradesSemApply(grades_df)
+
+df = pd.DataFrame({
+    'a': [4, 5, 3, 1, 2],
+    'b': [20, 10, 40, 50, 30],
+    'c': [25, 20, 5, 15, 10]
+})
+
+# DataFrame apply()
+if False:
+    print df.apply(np.mean)
+    print df.apply(np.max)
+
+def segundoMaiorPorColuna(df):
+    ordenados = df.sort_values(ascending=False) #ordena os valores de forma decressente
+    return  ordenados.iloc[1] #retorna o segundo item. Segundo valor maior na lista
+
+def segundoMaior(df):
+    return df.apply( segundoMaiorPorColuna)
+
+#print(segundoMaior(df))
